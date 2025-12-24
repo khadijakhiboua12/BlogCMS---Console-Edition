@@ -1,22 +1,22 @@
-
 <?php
-require_once 'data.php';
+
+include 'data.php';
  class User{
     //les attributes
    private int $id;
    private string  $username;
    private string $email;
    private string $password;
-   private string $role;
+//    private array $article=[];
    private   DateTime $createdAt;
    private DateTime $lastLogin;
    //la constructeur
-   public function __construct($id,$username,$email,$password,$role){
+   public function __construct($id,$username,$email,$password){
        $this->id=$id;
        $this->username=$username;
        $this->email=$email;
        $this->password=$password;
-       $this->role=$role;
+     
        $this->createdAt=new DateTime();
        $this->lastLogin=new DateTime();
    }
@@ -25,11 +25,20 @@ require_once 'data.php';
           return $this->username;
     }
     //les methodes
-    public function liste_Article(array $article){
-         foreach($article as $art){
-          echo $art->getTitle()   $art->getContent()  $art->getExcerpt()  $art->getStatus() ."\n";
+        //1)Liste les articles
+    public function liste_Article($allArticle):void{
+        echo "Liste d'article est :\n";
+        
+         foreach($allArticle as $art){
+          echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
          }
     }
+        //2)Ajouter commentaire
+     public function Ajouter_Commentaire($commentaire):void{
+                 $this->commentaire[]=$commentaire;
+     }
+
+
 
  }
 
@@ -38,8 +47,8 @@ require_once 'data.php';
  }
   class Auteur extends User{
      private string $bio;
-     private array $article;//array des articles puisique il exixte la composition
-     private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
+     private array $articles;//array des articles puisique il exixte la composition
+    //  private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
  }
 
  class Editeur extends moderateur {
@@ -98,8 +107,29 @@ require_once 'data.php';
      private string $contenu;
      private DateTime $updatedAt;
      private Auteur $auteur;
+     private Article $article;
+     //constructeur
+    public function __construct($id,$content,$auteur,$article){
+            $this->id=$id;
+            $this->contenu=$content;
+            $this->updatedAt=new DateTime();
+            $this->auteur=$auteur;
+            $this->article=$article;
+   }
+    //les getters
+    public function getContenu(){
+          return $this->contenu;
+     }
+      
+
  }
+
+ //Le main
+
  $user=new User(1,"khadija","khadija@gmail.com","1234","admin");
  echo $user->liste_Article($allArticle);
+$comment=new commentaire(1,"wowo ");
+echo $comment->Ajouter_Commentaire($comment);
+
  
 ?>

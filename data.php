@@ -5,5 +5,10 @@ $allArticle = [
     new Article(3, "JAVA", "Contenu de l'article 3","ejj euq","publier")
 ];
 
+$commentaire=[
+    new commentaire(1,"wowo"),
+    new commentaire(2,"hcwhewh")
+];
+
 ?>
 
