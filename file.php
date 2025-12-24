@@ -10,6 +10,7 @@ include 'data.php';
 //    private array $article=[];
    private   DateTime $createdAt;
    private DateTime $lastLogin;
+   private array $commentaire;
    //la constructeur
    public function __construct($id,$username,$email,$password){
        $this->id=$id;
@@ -19,6 +20,7 @@ include 'data.php';
      
        $this->createdAt=new DateTime();
        $this->lastLogin=new DateTime();
+       $this->commentaire=[];
    }
    //geters
     public function getUsername(){
@@ -37,7 +39,6 @@ include 'data.php';
      public function Ajouter_Commentaire($commentaire):void{
                  $this->commentaire[]=$commentaire;
      }
-
 
 
  }
