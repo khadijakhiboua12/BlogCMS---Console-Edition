@@ -49,6 +49,12 @@ include 'data.php';
      private string $bio;
      private array $articles;//array des articles puisique il exixte la composition
     //  private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
+    //constructeur
+    public function __construct($bio,$id,$username,$email,$password){
+        parent::__construct($id,$username,$email,$password);
+        $this->$bio;
+        $this->article=[];
+    }
  }
 
  class Editeur extends moderateur {
@@ -128,8 +134,10 @@ include 'data.php';
 
  $user=new User(1,"khadija","khadija@gmail.com","1234","admin");
  echo $user->liste_Article($allArticle);
-$comment=new commentaire(1,"wowo ");
-echo $comment->Ajouter_Commentaire($comment);
+ $article= new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
+$auteur=
+$comment=new commentaire(1,"wowo",$user,$article);
+echo this->$comment;
 
  
 ?>
