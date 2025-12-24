@@ -52,8 +52,8 @@ include 'data.php';
     //constructeur
     public function __construct($bio,$id,$username,$email,$password){
         parent::__construct($id,$username,$email,$password);
-        $this->$bio;
-        $this->article=[];
+        $this->bio=$bio;
+        $this->articles=[];
     }
  }
 
@@ -132,12 +132,14 @@ include 'data.php';
 
  //Le main
 
- $user=new User(1,"khadija","khadija@gmail.com","1234","admin");
+ $user=new User(1,"khadija","khadija@gmail.com","1234");
  echo $user->liste_Article($allArticle);
  $article= new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
-$auteur=
-$comment=new commentaire(1,"wowo",$user,$article);
-echo this->$comment;
+
+$auteur=new Auteur("Je suis dev", 1, "Khadija", "khadija@gmail.com", "1234");
+$comment=new commentaire(1,"kkkkk",$auteur,$article);
+echo $comment->getContenu();
+
 
  
 ?>
