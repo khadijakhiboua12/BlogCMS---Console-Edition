@@ -81,7 +81,11 @@ class Collection {
               return false;
           }
 
-}
+} 
+  //creation de user
+      public function ajouter_user(User $user){
+           $this->storage['users']=$user;
+      }
   
 }
 //

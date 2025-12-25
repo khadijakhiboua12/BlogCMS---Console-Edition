@@ -87,9 +87,12 @@ include 'data.php';
     }
     //creer user
       public function creeUser(User $user){
-              
+            $colection=new collection();
+            $colection->ajouter_user($user);
+            echo "la creation est avec sucee";
       }
 }
+
 
 
  class Article{
@@ -157,7 +160,9 @@ include 'data.php';
 
  }
 
- //Le main
+ //========================================================================================================
+                    //   MAIN PRANCIPALE
+ //========================================================================================================
 
 //  $user=new Auteur(1,"khadija","khadija@gmail.com","1234");
 //  echo $user->getArticles();
