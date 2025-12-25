@@ -35,11 +35,8 @@ include 'data.php';
           echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
          }
     }
-        //2)Ajouter commentaire
-     public function Ajouter_Commentaire($commentaire):void{
-                 $this->commentaire[]=$commentaire;
-     }
-
+       //2)
+      
 
  }
 
@@ -49,13 +46,26 @@ include 'data.php';
   class Auteur extends User{
      private string $bio;
      private array $articles;//array des articles puisique il exixte la composition
-    //  private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
+     private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
     //constructeur
     public function __construct($bio,$id,$username,$email,$password){
         parent::__construct($id,$username,$email,$password);
         $this->bio=$bio;
         $this->articles=[];
     }
+        //1)Ajouter commentaire
+     public function Ajouter_Commentaire($commentaire):void{
+                 $this->commentaire[]=$commentaire;
+     }
+        //2)creer article
+    public function creer_Article(Article $article):void{
+             $this->articles[]=$article;
+    }
+     //afficher article
+     public function getArticle():array{
+         return  $this->articles;
+     }
+
  }
 
  class Editeur extends moderateur {
@@ -135,12 +145,14 @@ include 'data.php';
 
  $user=new User(1,"khadija","khadija@gmail.com","1234");
  echo $user->liste_Article($allArticle);
- $article= new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
 
 $auteur=new Auteur("Je suis dev", 1, "Khadija", "khadija@gmail.com", "1234");
-$comment=new commentaire(1,"kkkkk",$auteur,$article);
-echo $comment->getContenu();
+$comment=new commentaire(1,"hello",$auteur,$article);
+// echo $comment->getContenu();
 
+//pour creer articel a partir  d'un auteur
+echo $auteur->creer_Article($article4);
+echo $auteur->liste_Article($allArticle);
+   
 
- 
 ?>

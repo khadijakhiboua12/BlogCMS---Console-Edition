@@ -8,7 +8,9 @@ $allAuteur=[$auteur1,$auteur1];
 $article1=new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
 $article2=new Article(2, "MYSQL", "Contenu de l'article 2","cv dje","brouille");
 $article3=new Article(3, "JAVA", "Contenu de l'article 3","ejj euq","publier");
-$allArticle = [$article1,$article2,$article3];
+$article4= new Article(1, "POO en JAVA", "Contenu de l'article 3","hcfh","Adraft");
+
+$allArticle = [$article1,$article2,$article3,$article4];
 
 $allCommentaire = [
  new commentaire(1, "Super article!", $auteur1, $article1),
