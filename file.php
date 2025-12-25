@@ -26,17 +26,13 @@ include 'data.php';
     public function getUsername(){
           return $this->username;
     }
-    //les methodes
-        //1)Liste les articles
-    public function liste_Article($allArticle):void{
-        echo "Liste d'article est :\n";
-        
-         foreach($allArticle as $art){
-          echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
-         }
+    public function getEmail(){
+          return $this->email;
     }
-       //2)
-      
+    public function getPassword(){
+         return $this->password;
+    }
+
 
  }
 
@@ -46,8 +42,9 @@ include 'data.php';
   class Auteur extends User{
      private string $bio;
      private array $articles;//array des articles puisique il exixte la composition
-     private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
+    //  private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
     //constructeur
+
     public function __construct($bio,$id,$username,$email,$password){
         parent::__construct($id,$username,$email,$password);
         $this->bio=$bio;
@@ -62,19 +59,38 @@ include 'data.php';
              $this->articles[]=$article;
     }
      //afficher article
-     public function getArticle():array{
-         return  $this->articles;
+     public function getArticles(){
+        echo "Articles de l'auteur : " . $this->getUsername() . "\n";
+        foreach( $this->articles as $art){
+        echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
+        }
      }
+     //
+
 
  }
 
  class Editeur extends moderateur {
-    private string $moderationLevel;
+    private string $moderationLevel;//junior..
+        public function __construct($moderationLevel,$id,$username,$email,$password){
+        parent::__construct($id,$username,$email,$password);
+        $this->moderationLevel=$moderationLevel;
+       
+    }
 }
 
  class Admin extends moderateur{
     private bool $isSuperAdmin;
+        public function __construct($isSuperAdmin,$id,$username,$email,$password){
+        parent::__construct($id,$username,$email,$password);
+        $this->isSuperAdmin=$isSuperAdmin;
+    }
+    //creer user
+      public function creeUser(User $user){
+              
+      }
 }
+
 
  class Article{
     private int $id;
@@ -143,16 +159,44 @@ include 'data.php';
 
  //Le main
 
- $user=new User(1,"khadija","khadija@gmail.com","1234");
- echo $user->liste_Article($allArticle);
+//  $user=new Auteur(1,"khadija","khadija@gmail.com","1234");
+//  echo $user->getArticles();
+ $article= new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
 
 $auteur=new Auteur("Je suis dev", 1, "Khadija", "khadija@gmail.com", "1234");
 $comment=new commentaire(1,"hello",$auteur,$article);
 // echo $comment->getContenu();
 
-//pour creer articel a partir  d'un auteur
-echo $auteur->creer_Article($article4);
-echo $auteur->liste_Article($allArticle);
-   
+// //pour creer articel a partir  d'un auteur
+echo $auteur->creer_Article($article);
+$auteur->getArticles();
 
+
+ $collection = Collection::getInstance();
+        
+// $user = $collection->login('khadija@gmail.com','1234');
+
+// if ($user) {
+//     echo "bienvenue";
+// } else {
+//     echo  "erreur";
+// }
+ // TEST FINAL
+// $collection = new Collection();
+
+// Test 1: Connexion réussie
+$result =  $collection->login('khadija@gmail.com', '1234');
+echo $result ? "Connexion alice OK" : "Échec connexion alice";
+// Test 2: Connexion échouée (mauvais mot de passe)
+$result = $collection->login('alice', 'wrongpass');
+echo !$result ? "Rejet mauvais mot de passe OK" : "Problème vérification";
+// Test 3: Vérification état connexion
+if ($collection->isLoggedIn()) {
+$user = $collection->getCurrentUser();
+echo "Utilisateur connecté: " . $user->getUsername();
+// Test 4: Déconnexion
+$collection->logout();
+echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion";
+}
 ?>
+
