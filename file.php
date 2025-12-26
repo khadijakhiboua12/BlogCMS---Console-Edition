@@ -23,6 +23,9 @@ include 'data.php';
        $this->commentaire=[];
    }
    //geters
+    public function getId(){
+       return $this->id;
+}
     public function getUsername(){
           return $this->username;
     }
@@ -65,7 +68,11 @@ include 'data.php';
         echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
         }
      }
-     //
+     //supprimer article
+      public function supprimerArticle(Article $art){
+                unset($this->art);
+      }
+      
 
 
  }
@@ -86,11 +93,19 @@ include 'data.php';
         $this->isSuperAdmin=$isSuperAdmin;
     }
     //creer user
-      public function creeUser(User $user){
-            $colection=new collection();
+      public function creeUser(User $user):void{
+            $colection=Collection::getInstance();
             $colection->ajouter_user($user);
             echo "la creation est avec sucee";
       }
+      //supprimer user
+        public function suppimerUser(User $user):void{          
+            $colection=Collection::getInstance();
+            $colection->supprimer_user_ById($user);
+            echo "la supprision est avec succe";
+    }
+
+
 }
 
 
@@ -178,17 +193,6 @@ $auteur->getArticles();
 
 
  $collection = Collection::getInstance();
-        
-// $user = $collection->login('khadija@gmail.com','1234');
-
-// if ($user) {
-//     echo "bienvenue";
-// } else {
-//     echo  "erreur";
-// }
- // TEST FINAL
-// $collection = new Collection();
-
 // Test 1: Connexion réussie
 $result =  $collection->login('khadija@gmail.com', '1234');
 echo $result ? "Connexion alice OK" : "Échec connexion alice";
@@ -201,7 +205,14 @@ $user = $collection->getCurrentUser();
 echo "Utilisateur connecté: " . $user->getUsername();
 // Test 4: Déconnexion
 $collection->logout();
-echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion";
+echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion ";
+
+//POUR ADMIN
+$admin = new Admin(true,1,'admin','admin@gmail.com','123');
+$newuser=new Auteur("Je suis prof", 1, "khadija", "khadija@gmail.com", "1234");
+$admin->creeUser($newuser);
+$admin->suppimerUser($user);
+
 }
 ?>
 
