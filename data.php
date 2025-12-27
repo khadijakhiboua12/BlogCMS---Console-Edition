@@ -7,15 +7,18 @@ class Collection {
     private $article;
     
     private function __construct() {
-        $article1 = new Article(1,"maths","maths est  bonne ","khadija","publier");
-        $article2 = new Article(2,"pc","pc est  bonne ","salma","draft");
-          
+       
+        $cat1=new categorie(1,'poo','cest facile');
+        $cat2=new categorie(2,'php','cjhhh facile');
+         $article1 = new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1]);
+        $article2 = new Article(2,"pc","pc est  bonne ","salma","draft",[$cat2]);
+
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
             new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[$article1]),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
-            'categories' => [],
+          'categories' => [$cat1,$cat2],
             'articles'=>[$article1,$article2]
         ];
        
@@ -29,7 +32,10 @@ class Collection {
        public function getUser():array{
          return $this->storage['users'];
        }
-
+     //function de getcategorie
+      public function getCategories(){
+          return $this->storage['categories'];
+      }
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -105,6 +111,10 @@ class Collection {
               }
             }
              
+        }
+        //creer categorie
+        public function ajouter_categorie(categorie $cat){
+             $this->storage['categories'][]=$cat;
         }
     }
     ?>

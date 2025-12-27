@@ -122,6 +122,12 @@ include 'data.php';
           $colection->modifier_article_ID($id,$newarticle);
            echo "la modification est  avec sucee pour article";
        }
+       //cree categorie
+       public function creer_categorie(categorie $cat){
+         $colection=Collection::getInstance();
+         $colection->ajouter_categorie($cat);
+         echo "l'ajoute de categorie est bien";
+       }
 
 }
 
@@ -140,7 +146,7 @@ include 'data.php';
     private array $commentaire;//array des commentaire puisique il exixte la composition
     private array $categorie;//puisque existe la cardinalite entre article et categorie
     //constructeur
-    public function __construct($id,$title,$content,$excerpt,$status){
+    public function __construct($id,$title,$content,$excerpt,$status,$cat){
            $this->id=$id;
            $this->title=$title;
            $this->content=$content;
@@ -148,6 +154,7 @@ include 'data.php';
            $this->status=$status;
            $this->createdAt=new DateTime();
            $this->publishedAt=new DateTime();
+           $this->categorie=$cat;
     }
      public function getId(){
        return $this->id;
@@ -189,8 +196,24 @@ include 'data.php';
      private int $id;
      private string $name;
      private string $description;
-     private category $parent;
      private DateTime $createdAt;
+
+     public function __construct(int $id, string $name, string $desc){
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $desc;
+    }
+
+    public function getId(){
+         return $this->id;
+     }
+    public function getName(){
+         return $this->name;
+     }
+    public function getDescription(){
+         return $this->description; 
+    }
+
  }
  class commentaire{
      private int $id;
