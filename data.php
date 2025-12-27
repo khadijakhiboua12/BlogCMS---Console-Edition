@@ -4,15 +4,19 @@ class Collection {
     private static $instance = null;
     private $current_user = null;
     private $storage = [];
-
+    private $article;
+    
     private function __construct() {
+        $article1 = new Article(1,"maths","maths est  bonne ","khadija","publier");
+        $article2 = new Article(2,"pc","pc est  bonne ","salma","draft");
+          
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
-            new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[new Article(1,"meths","maths est une bonne ","hid","publier")] ),
+            new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[$article1]),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
             'categories' => [],
-            
+            'articles'=>[$article1,$article2]
         ];
        
 
@@ -81,6 +85,14 @@ class Collection {
                     $this->storage['users'][$key]=$new;
           }
        } 
-
+    //supprimer articles
+        
+       //modfier article
+        public function modifier_article(articles $article,articles $newarticle){
+              foreach($this->storage['articles'] as $key=>$art){
+                if($art==$article)
+                     $this->storage['articles'][$key]=$newarticle;
+              }
+        }
     }
     ?>
