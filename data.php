@@ -139,6 +139,16 @@ public function modifier_categorie(int $id, categorie $newCategorie){
         }
     }
 }
-
+    //les statistique pour admin
+     public function getstatistique(){
+         return [
+          'users'=>count($this->storage['users']),
+           'categories'=>count($this->storage['categories']),
+           'articles'=>count($this->storage[ 'articles'])
+         ];
+     }
 }
+
+
+
     ?>

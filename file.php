@@ -140,6 +140,13 @@ include 'data.php';
             $colection->modifier_categorie($id,$newcat);
             echo"la modification est avec succe";
       }
+      //les statistique
+      public function voirStatistique(){
+        $colection=Collection::getInstance();
+         $statique=$colection->getstatistique();
+         echo"statistique systeme\n";
+         print_r($statique);
+      }
 }
 
 

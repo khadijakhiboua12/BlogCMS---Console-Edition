@@ -48,6 +48,7 @@ $newcategorie=new categorie(19,'pappa','yelo');
 // $admin->creer_categorie($cat1);
 $admin->supprimer_categorie_BYId(2);
 // $admin->modifier_categorie_BYID(2,$newcategorie);
-print_r($collection->getStorage());
+$admin->voirStatistique();
+// print_r($collection->getStorage());
 }
 ?>
