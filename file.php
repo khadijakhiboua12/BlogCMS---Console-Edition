@@ -110,6 +110,18 @@ include 'data.php';
            $colection->modifier_user($user,$new);
            echo "la modification est  avec sucee";
        }
+    //supprimer articles
+       public function supprimer_article_BYId(int $id){
+          $colection=Collection::getInstance();
+          $colection->supprimer_article_BYId($id);
+          echo"la supprision d'un articles est avec succe";
+       }
+    //modifier article
+       public function modifier_article(int $id,Article $newarticle){
+          $colection=Collection::getInstance();
+          $colection->modifier_article_ID($id,$newarticle);
+           echo "la modification est  avec sucee pour article";
+       }
 
 }
 
@@ -137,6 +149,9 @@ include 'data.php';
            $this->createdAt=new DateTime();
            $this->publishedAt=new DateTime();
     }
+     public function getId(){
+       return $this->id;
+}
     public function getTitle(){
          return $this->title;
     }
@@ -149,7 +164,26 @@ include 'data.php';
    public function getStatus(){
        return $this->status;
    }
+   //seters
+    public function setId(int $id){
+        $this->id=$id;
 }
+   public function setTitle(string $titre){
+      $this->title=$titre;
+   }
+    public function setContent(string $content){
+      $this->content=$content;
+   }
+
+    public function setExcerpt(string $excerpt){
+      $this->excerpt=$excerpt;
+   }
+
+    public function setStatus(string $status){
+      $this->status=$status;
+   }
+}
+
 
  class categorie{
      private int $id;

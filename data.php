@@ -85,14 +85,26 @@ class Collection {
                     $this->storage['users'][$key]=$new;
           }
        } 
-    //supprimer articles
-        
-       //modfier article
-        public function modifier_article(articles $article,articles $newarticle){
-              foreach($this->storage['articles'] as $key=>$art){
-                if($art==$article)
-                     $this->storage['articles'][$key]=$newarticle;
+    //supprimer articles pour admin et editeur
+        public function supprimer_article_BYId(int $id){
+             foreach($this->storage['articles'] as $key=>$art){
+                 if($art->getId()==$id)
+                    unset($this->storage['articles'][$key]);
+            }
+        }
+       //modfier article pour admin et editeur
+        public function modifier_article_ID(int $id,Article $newarticle):void{
+              foreach($this->storage['articles']  as $art){
+                if($art->getId()==$id){
+                     $art->setId($newarticle->getId());
+                     $art->setTitle($newarticle->getTitle());
+                     $art->setContent($newarticle->getContent());
+                     $art->setExcerpt($newarticle->getExcerpt());
+                     $art->setStatus($newarticle->getStatus());
+            
               }
+            }
+             
         }
     }
     ?>
