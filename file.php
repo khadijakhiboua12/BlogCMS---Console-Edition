@@ -128,7 +128,18 @@ include 'data.php';
          $colection->ajouter_categorie($cat);
          echo "l'ajoute de categorie est bien";
        }
-
+      //suuprimer categorie
+      public function supprimer_categorie_BYId(int $id){
+        $colection=Collection::getInstance();
+        $colection->supprimer_categorie_BYID($id);
+        echo "la supprision de categorie est avec succe";
+      }
+      //modifier categorie
+      public function modifier_categorie_BYID(int $id,categorie $newcat){
+            $colection=Collection::getInstance();
+            $colection-> modifier_categorie($id,$newcat);
+            echo"la modification est avec succe";
+      }
 }
 
 
@@ -159,6 +170,9 @@ include 'data.php';
      public function getId(){
        return $this->id;
 }
+       public function getCategorie(): array {
+        return $this->categorie;
+    }
     public function getTitle(){
          return $this->title;
     }
@@ -175,6 +189,9 @@ include 'data.php';
     public function setId(int $id){
         $this->id=$id;
 }
+ public function setCategorie(array $cats): void {
+        $this->categorie = $cats;
+    }
    public function setTitle(string $titre){
       $this->title=$titre;
    }
@@ -202,6 +219,7 @@ include 'data.php';
         $this->id = $id;
         $this->name = $name;
         $this->description = $desc;
+        $this->createdAt=new DateTime();
     }
 
     public function getId(){
@@ -213,6 +231,16 @@ include 'data.php';
     public function getDescription(){
          return $this->description; 
     }
+    public function setId(int $id){
+         $this->id=$id;
+    }
+    public function setName(string $name){
+         $this->name=$name;
+    }
+    public function setdescription(string $desc){
+         $this->description=$desc;
+    }
+
 
  }
  class commentaire{

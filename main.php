@@ -36,7 +36,8 @@ echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion ";
 $admin = new Admin(true,1,'admin','admin@gmail.com','123');
 $newuser=new Auteur("Je suis prof", 28, "khadija", "khadija@gmail.com", "900");
 // $newArticle=new Article(2,"maths","islamic est  bonne ","yasmine","jjjj");
-$cat1=new categorie(2,'php','woow');
+ $cat1=new categorie(1,'poo','nari');
+$newcategorie=new categorie(19,'pappa','yelo');
 // $admin->creeUser($newuser);
 //  $admin->suppimerUser(2);
 // $ancienuser=$collection->getStorage()['users'][1];
@@ -44,7 +45,9 @@ $cat1=new categorie(2,'php','woow');
 // $admin->supprimer_article_BYId(2);
 // $ancienArticle=$collection->getStorage()['articles'][1];
 // $admin->modifier_article(2,$newArticle);
-$admin->creer_categorie($cat1);
+// $admin->creer_categorie($cat1);
+$admin->supprimer_categorie_BYId(2);
+$admin->modifier_categorie_BYID(2,$newcategorie);
 print_r($collection->getStorage());
 }
 ?>

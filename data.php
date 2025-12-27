@@ -4,11 +4,11 @@ class Collection {
     private static $instance = null;
     private $current_user = null;
     private $storage = [];
-    private $article;
+  
     
     private function __construct() {
        
-        $cat1=new categorie(1,'poo','cest facile');
+        $cat1=new categorie(1,'poo','nari');
         $cat2=new categorie(2,'php','cjhhh facile');
          $article1 = new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1]);
         $article2 = new Article(2,"pc","pc est  bonne ","salma","draft",[$cat2]);
@@ -115,6 +115,34 @@ class Collection {
         //creer categorie
         public function ajouter_categorie(categorie $cat){
              $this->storage['categories'][]=$cat;
+        }
+        //suprimer categorie
+
+        public function supprimer_categorie_BYID(int $id) {
+            foreach ($this->storage['categories'] as $key => $cat) {
+              if ($cat->getId() == $id) {
+                unset($this->storage['categories'][$key]);
+        }
+    }
+            foreach ($this->storage['articles'] as $article) {
+            $newCats = [];
+            foreach ($article->getCategorie() as $cat) {
+               if ($cat->getId() != $id) {
+                   $newCats[] = $cat;
+            }
+        }
+        $article->setCategorie($newCats);
+    }
+}
+        //update categorie
+        public function modifier_categorie(int $id,$newcategorie){
+              foreach($this->storage['categories'] as $key=>$cat){
+                  if($cat->getId()==$id){
+                     $cat->setId($newcategorie->getId());
+                    $cat->setName($newcategorie->getName());
+                    $cat->setdescription($newcategorie->getDescription());
+              }
+            }
         }
     }
     ?>
