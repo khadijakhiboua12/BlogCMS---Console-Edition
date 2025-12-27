@@ -79,11 +79,25 @@ include 'data.php';
 
  class Editeur extends moderateur {
     private string $moderationLevel;//junior..
+
         public function __construct($moderationLevel,$id,$username,$email,$password){
         parent::__construct($id,$username,$email,$password);
         $this->moderationLevel=$moderationLevel;
+        }
+        //changer status d'articles
+        public function changerStatus(Article $article,string $nouvArticle){
+             $colection=Collection::getInstance();
+            foreach($colection->getArticles() as $art){
+             if($art->getId()===$article->getId()){
+              if($nouvArticle==='publier')
+               $art->publier();
+              else
+                $art->depublier();
+              }
+            }
+        }
        
-    }
+        
 }
 
  class Admin extends moderateur{
@@ -147,6 +161,7 @@ include 'data.php';
          echo"statistique systeme\n";
          print_r($statique);
       }
+      
 }
 
 
@@ -212,8 +227,14 @@ include 'data.php';
 
     public function setStatus(string $status){
       $this->status=$status;
-
    }
+    public function publier(){
+            $this->status='publier';
+}
+    public function depublier(){
+            $this->status='draft';
+    }
+
    //supprimer categorie
    public function supprimerBYID(int $id){
      foreach($this->categorie as $key=> $art){

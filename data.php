@@ -18,7 +18,7 @@ class Collection {
             new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[$article1]),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
-          'categories' => [$cat1,$cat2],
+           'categories' => [$cat1,$cat2],
             'articles'=>[$article1,$article2]
         ];
        
@@ -36,6 +36,9 @@ class Collection {
       public function getCategories(){
           return $this->storage['categories'];
       }
+       public function getArticles(): array {
+        return $this->storage['articles'];
+    }
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -147,6 +150,11 @@ public function modifier_categorie(int $id, categorie $newCategorie){
            'articles'=>count($this->storage[ 'articles'])
          ];
      }
+     
+
+
+
+
 }
 
 

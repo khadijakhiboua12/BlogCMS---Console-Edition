@@ -36,8 +36,12 @@ echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion ";
 $admin = new Admin(true,1,'admin','admin@gmail.com','123');
 $newuser=new Auteur("Je suis prof", 28, "khadija", "khadija@gmail.com", "900");
 // $newArticle=new Article(2,"maths","islamic est  bonne ","yasmine","jjjj");
- $cat1=new categorie(1,'poo','nari');
+$cat1=new categorie(1,'poo','nari');
 $newcategorie=new categorie(19,'pappa','yelo');
+$editeur=new Editeur('hi',3,'sara','sara@gmail.com','1234');
+$article1=new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1]);
+
+
 // $admin->creeUser($newuser);
 //  $admin->suppimerUser(2);
 // $ancienuser=$collection->getStorage()['users'][1];
@@ -49,6 +53,8 @@ $newcategorie=new categorie(19,'pappa','yelo');
 $admin->supprimer_categorie_BYId(2);
 // $admin->modifier_categorie_BYID(2,$newcategorie);
 $admin->voirStatistique();
-// print_r($collection->getStorage());
+$editeur->changerStatus($article1,'draft');
+// echo $collection->afficher_role($admin);
+print_r($collection->getStorage());
 }
 ?>
