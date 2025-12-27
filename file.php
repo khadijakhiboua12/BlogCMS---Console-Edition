@@ -137,7 +137,7 @@ include 'data.php';
       //modifier categorie
       public function modifier_categorie_BYID(int $id,categorie $newcat){
             $colection=Collection::getInstance();
-            $colection-> modifier_categorie($id,$newcat);
+            $colection->modifier_categorie($id,$newcat);
             echo"la modification est avec succe";
       }
 }
@@ -205,6 +205,14 @@ include 'data.php';
 
     public function setStatus(string $status){
       $this->status=$status;
+
+   }
+   //supprimer categorie
+   public function supprimerBYID(int $id){
+     foreach($this->categorie as $key=> $art){
+         if($art->getId()==$id)
+            unset($this->categorie[$key]);
+     }
    }
 }
 

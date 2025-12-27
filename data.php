@@ -125,24 +125,20 @@ class Collection {
         }
     }
             foreach ($this->storage['articles'] as $article) {
-            $newCats = [];
-            foreach ($article->getCategorie() as $cat) {
-               if ($cat->getId() != $id) {
-                   $newCats[] = $cat;
-            }
-        }
-        $article->setCategorie($newCats);
+             $article->supprimerBYID($id);
     }
 }
-        //update categorie
-        public function modifier_categorie(int $id,$newcategorie){
-              foreach($this->storage['categories'] as $key=>$cat){
-                  if($cat->getId()==$id){
-                     $cat->setId($newcategorie->getId());
-                    $cat->setName($newcategorie->getName());
-                    $cat->setdescription($newcategorie->getDescription());
-              }
-            }
+
+       
+        //modifier categorie
+public function modifier_categorie(int $id, categorie $newCategorie){
+    foreach ($this->storage['categories'] as $cat) {
+        if ($cat->getId() === $id) {
+            $cat->setName($newCategorie->getName());
+            $cat->setDescription($newCategorie->getDescription());
         }
     }
+}
+
+}
     ?>
