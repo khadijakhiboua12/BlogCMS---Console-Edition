@@ -72,7 +72,7 @@ include 'data.php';
       public function supprimerArticle(Article $art){
                 unset($this->art);
       }
-      
+
 
 
  }
@@ -99,12 +99,17 @@ include 'data.php';
             echo "la creation est avec sucee";
       }
       //supprimer user
-        public function suppimerUser(User $user):void{          
+        public function suppimerUser(int $id):void{          
             $colection=Collection::getInstance();
-            $colection->supprimer_user_ById($user);
+            $colection->supprimer_user_ById($id);
             echo "la supprision est avec succe";
     }
-
+    //modfier  user
+       public function modifier(User $user,User $new){
+           $colection=Collection::getInstance();
+           $colection->modifier_user($user,$new);
+           echo "la modification est  avec sucee";
+       }
 
 }
 
@@ -175,44 +180,7 @@ include 'data.php';
 
  }
 
- //========================================================================================================
-                    //   MAIN PRANCIPALE
- //========================================================================================================
-
-//  $user=new Auteur(1,"khadija","khadija@gmail.com","1234");
-//  echo $user->getArticles();
- $article= new Article(1, "POO en PHP", "Contenu de l'article 1","hcfh","publier");
-
-$auteur=new Auteur("Je suis dev", 1, "Khadija", "khadija@gmail.com", "1234");
-$comment=new commentaire(1,"hello",$auteur,$article);
-// echo $comment->getContenu();
-
-// //pour creer articel a partir  d'un auteur
-echo $auteur->creer_Article($article);
-$auteur->getArticles();
 
 
- $collection = Collection::getInstance();
-// Test 1: Connexion réussie
-$result =  $collection->login('khadija@gmail.com', '1234');
-echo $result ? "Connexion alice OK" : "Échec connexion alice";
-// Test 2: Connexion échouée (mauvais mot de passe)
-$result = $collection->login('alice', 'wrongpass');
-echo !$result ? "Rejet mauvais mot de passe OK" : "Problème vérification";
-// Test 3: Vérification état connexion
-if ($collection->isLoggedIn()) {
-$user = $collection->getCurrentUser();
-echo "Utilisateur connecté: " . $user->getUsername();
-// Test 4: Déconnexion
-$collection->logout();
-echo !$collection->isLoggedIn() ? "Déconnexion OK" : "Problème déconnexion ";
 
-//POUR ADMIN
-$admin = new Admin(true,1,'admin','admin@gmail.com','123');
-$newuser=new Auteur("Je suis prof", 1, "khadija", "khadija@gmail.com", "1234");
-$admin->creeUser($newuser);
-$admin->suppimerUser($user);
-
-}
-?>
 

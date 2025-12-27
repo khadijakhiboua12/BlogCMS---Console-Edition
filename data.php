@@ -8,7 +8,7 @@ class Collection {
     private function __construct() {
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
-            new Auteur('hh',1,'khadija','khadija@gmail.com','1234'),
+            new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[new Article(1,"meths","maths est une bonne ","hid","publier")] ),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
             'categories' => [],
@@ -18,13 +18,13 @@ class Collection {
 
     }  
     //function de storage
-    //    public function getStorage():array{
-    //      return $this->storage;
-    //    }
+       public function getStorage():array{
+         return $this->storage;
+       }
     // //function de getuser
-    //    public function getUser():array{
-    //      return $this->storage['users'];
-    //    }
+       public function getUser():array{
+         return $this->storage['users'];
+       }
 
     public static function getInstance() {
         if (self::$instance === null) {
@@ -69,13 +69,18 @@ class Collection {
   //supprimer user
      public function supprimer_user_ById(int $id){
           foreach($this->storage['users'] as $key=>$st){
-               if($st->getRole()==$st)
+               if($st->getId()==$id)
                 unset($this->storage['users'][$key]);
           }
      }
-     
-    //
-  
-}
-//
+    
+    //modifier user
+       public function modifier_user(User $user,User $new){
+          foreach($this->storage['users'] as $key=>$st){
+                 if($st===$user)  
+                    $this->storage['users'][$key]=$new;
+          }
+       } 
+
+    }
     ?>
