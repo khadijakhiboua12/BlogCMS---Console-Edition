@@ -4,7 +4,7 @@ class Collection {
     private static $instance = null;
     private $current_user = null;
     private $storage = [];
-  
+    private array $users=[];
     
     private function __construct() {
         $cat1 = new Categorie(1, 'poo', 'nari');
@@ -25,12 +25,12 @@ class Collection {
 
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
-            new Auteur('hh',1,'rim','rim@gmail.com','1234',[$article1]),
+            new Auteur('hh',2,'rim','rim@gmail.com','1234',[$article1]),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
-            new Admin(true,1,'admin','admin@gmail.com','123')],
+            new Admin(true,4,'admin','admin@gmail.com','123')],
            'categories' => [$cat1,$cat2],
             'articles'=>[$article1,$article2],
-            'commentaires' => [$coment1]
+            'commentaires' => [$coment1,$coment2]
            
         ];
        
@@ -90,6 +90,16 @@ class Collection {
           }
 
 } 
+
+  public function getUserById(int $id): ?User {
+    foreach ($this->storage['users'] as $user) {
+        if ($user->getId() === $id) 
+            return $user;
+    }
+    return null;
+}
+
+
   //creation de user
       public function ajouter_user(User $user){
            $this->storage['users'][]=$user;
@@ -162,7 +172,8 @@ public function getstatistique(){
          return [
           'users'=>count($this->storage['users']),
            'categories'=>count($this->storage['categories']),
-           'articles'=>count($this->storage[ 'articles'])
+           'articles'=>count($this->storage[ 'articles']),
+            'commentaires'=>count($this->storage['commentaires'])
          ];
      }
     //modifier comment pour editeur et admin

@@ -132,7 +132,7 @@ include 'data.php';
       public function creeUser(User $user):void{
             $colection=Collection::getInstance();
             $colection->ajouter_user($user);
-            echo "la creation est avec sucee";
+            echo "la creation est avec sucee\n";
       }
       //supprimer user
         public function suppimerUser(int $id):void{          
