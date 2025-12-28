@@ -7,26 +7,25 @@ class Collection {
   
     
     private function __construct() {
-       
-       
         $cat1 = new Categorie(1, 'poo', 'nari');
         $cat2 = new Categorie(2, 'php', 'facile');
 
-        $article1 = new Article(1, "maths", "maths est bonne", "khadija", "publier", [$cat1], []);
-        $article2 = new Article(2, "pc", "pc est bonne", "salma", "draft", [$cat2], []);
+        $article1 = new Article(1, "maths", "maths est bonne", "khadija", "publier",[$cat1],[]);
+        $article2 = new Article(2, "pc", "pc est bonne", "salma", "draft",[$cat2],[]);
 
     
-        $auteur1 = new Auteur('hh', 1, 'salim', 'salim@gmail.com', '1234', [$article1]);
-        $auteur2 = new Auteur('hh', 2, 'khadija', 'khadija@gmail.com', '1234', [$article2]);
+        $auteur1 = new Auteur('hh', 1, 'salim', 'salim@gmail.com', '1234',[$article1]);
+        $auteur2 = new Auteur('hh', 2, 'khadija', 'khadija@gmail.com', '1234',[$article2]);
 
-        // 4. Commentaires
-        $coment1 = new Commentaire(1, 'wowo', $article1, $auteur1);
        
-        $article1->ajoutecomment($coment1);
+        $coment1 = new Commentaire(1, 'wowo', $article1, $auteur1);
+         $coment2 = new Commentaire(2, 'OCP', $article1, $auteur1);
+       
+        $article1->ajoutecomment($coment1,$coment2);
 
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
-            new Auteur('hh',1,'khadija','khadija@gmail.com','1234',[$article1]),
+            new Auteur('hh',1,'rim','rim@gmail.com','1234',[$article1]),
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
            'categories' => [$cat1,$cat2],
@@ -49,6 +48,7 @@ class Collection {
       public function getCategories(){
           return $this->storage['categories'];
       }
+      //afficher tout les articles
        public function getArticles(): array {
         return $this->storage['articles'];
     }
@@ -58,7 +58,9 @@ class Collection {
         }
         return self::$instance;
     }
-
+        public function getCommentaires(): array {
+        return $this->storage['commentaires'];
+    }
   //les methodes
         //1)login
         public function login(string $email,string $password):bool{
@@ -174,7 +176,19 @@ public function getstatistique(){
 }
 }
 }
+   //supprimer commentaire
+    
 
+        public function supprimer_comment_BYID(int $id) {
+            foreach ($this->storage['commentaires'] as $key => $comt) {
+              if ($comt->getId() == $id) {
+                unset($this->storage['commentaires'][$key]);
+        }
+    }
+            foreach ($this->storage['articles'] as $article) {
+             $article->supprimerBYID_comt($id);
+    }
+}
 
 
 

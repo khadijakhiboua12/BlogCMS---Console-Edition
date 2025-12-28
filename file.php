@@ -7,7 +7,6 @@ include 'data.php';
    private string  $username;
    private string $email;
    private string $password;
-//    private array $article=[];
    private   DateTime $createdAt;
    private DateTime $lastLogin;
    private array $commentaire;
@@ -35,6 +34,20 @@ include 'data.php';
     public function getPassword(){
          return $this->password;
     }
+    
+    public function getRole(): string {
+    if ($this instanceof Admin) {
+        return "Admin";
+    } elseif ($this instanceof Editeur) {
+        return "Editeur";
+    } elseif ($this instanceof Auteur) {
+        return "Auteur";
+    } elseif ($this instanceof moderateur) {
+        return "Moderateur";
+    } else {
+        return "User";
+    }
+}
 
 
  }
@@ -45,32 +58,29 @@ include 'data.php';
   class Auteur extends User{
      private string $bio;
      private array $articles;//array des articles puisique il exixte la composition
-    //  private array $commentaire;//puisuqe il existe une relation entre auteur et commentaire
     //constructeur
 
-    public function __construct($bio,$id,$username,$email,$password){
+    public function __construct($bio,$id,$username,$email,$password,$article){
         parent::__construct($id,$username,$email,$password);
         $this->bio=$bio;
-        $this->articles=[];
+        $this->articles=$article;
     }
-        //1)Ajouter commentaire
-     public function Ajouter_Commentaire($commentaire):void{
-                 $this->commentaire[]=$commentaire;
-     }
         //2)creer article
     public function creer_Article(Article $article):void{
              $this->articles[]=$article;
     }
      //afficher article
-     public function getArticles(){
-        echo "Articles de l'auteur : " . $this->getUsername() . "\n";
-        foreach( $this->articles as $art){
-        echo  $art->getTitle() . " "  . $art->getContent() ." " . $art->getExcerpt() ." " . $art->getStatus() ."\n";
-        }
-     }
+    public function getArticles(): array {
+    return $this->articles;
+}
+
      //supprimer article
-      public function supprimerArticle(Article $art){
-                unset($this->art);
+      public function supprimerArticle(int $id){
+               foreach($this->articles as $key=>$art){
+                 if($art->getId()==$id)
+                    unset($this->articles[$key]);
+                 echo "Article supprime avec succes\n";
+               }
       }
 
 
@@ -100,8 +110,14 @@ include 'data.php';
         public function modifier_commentaire(int $id,string $coment){
             $colection=Collection::getInstance();
             $colection->modifier_comment($id,$coment);
-            echo"la modification d'article est avec succe";
+            echo"la modification comment  est avec succe";
         }
+        //supprimer comment
+         public function supprimer_coment_BYId(int $id){
+        $colection=Collection::getInstance();
+        $colection->supprimer_comment_BYID($id);
+        echo "la supprision de commentaire est avec succe";
+      }
        
         
 }
@@ -256,6 +272,13 @@ include 'data.php';
    //ajoute commentaire
    public function ajoutecomment(commentaire $comment){
       $this->commentaire[]=$comment;
+   }
+   //supprimer comment
+    public function supprimerBYID_comt(int $id){
+     foreach($this->commentaire as $key=> $comt){
+         if($comt->getId()==$id)
+            unset($this->commentaire[$key]);
+     }
    }
 }
 
