@@ -96,6 +96,12 @@ include 'data.php';
               }
             }
         }
+        //modifier commentaire
+        public function modifier_commentaire(int $id,string $coment){
+            $colection=Collection::getInstance();
+            $colection->modifier_comment($id,$coment);
+            echo"la modification d'article est avec succe";
+        }
        
         
 }
@@ -176,10 +182,11 @@ include 'data.php';
     private DateTime $createdAt;
     private DateTime $publishedAt;
     private DateTime $updatedAt;
-    private array $commentaire;//array des commentaire puisique il exixte la composition
     private array $categorie;//puisque existe la cardinalite entre article et categorie
+    private array $commentaire;//array des commentaire puisique il exixte la composition
+
     //constructeur
-    public function __construct($id,$title,$content,$excerpt,$status,$cat){
+    public function __construct($id,$title,$content,$excerpt,$status,$cat,$comment){
            $this->id=$id;
            $this->title=$title;
            $this->content=$content;
@@ -188,6 +195,7 @@ include 'data.php';
            $this->createdAt=new DateTime();
            $this->publishedAt=new DateTime();
            $this->categorie=$cat;
+           $this->commentaire=$comment;
     }
      public function getId(){
        return $this->id;
@@ -206,6 +214,9 @@ include 'data.php';
    }
    public function getStatus(){
        return $this->status;
+   }
+   public function getComment(){
+       return $this->commentaire;
    }
    //seters
     public function setId(int $id){
@@ -241,6 +252,10 @@ include 'data.php';
          if($art->getId()==$id)
             unset($this->categorie[$key]);
      }
+   }
+   //ajoute commentaire
+   public function ajoutecomment(commentaire $comment){
+      $this->commentaire[]=$comment;
    }
 }
 
@@ -283,21 +298,30 @@ include 'data.php';
      private int $id;
      private string $contenu;
      private DateTime $updatedAt;
-     private Auteur $auteur;
      private Article $article;
+    private Auteur $auteur;
+    
      //constructeur
-    public function __construct($id,$content,$auteur,$article){
+    public function __construct($id,$content,$article,$auteur){
             $this->id=$id;
             $this->contenu=$content;
             $this->updatedAt=new DateTime();
-            $this->auteur=$auteur;
             $this->article=$article;
+            $this->auteur=$auteur;
+            
    }
     //les getters
+      public function getId(){
+         return $this->id;
+     }
     public function getContenu(){
           return $this->contenu;
      }
-      
+
+    public function setcontent(string $contenu){
+         $this->contenu=$contenu;
+    }
+    
 
  }
 

@@ -8,10 +8,21 @@ class Collection {
     
     private function __construct() {
        
-        $cat1=new categorie(1,'poo','nari');
-        $cat2=new categorie(2,'php','cjhhh facile');
-         $article1 = new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1]);
-        $article2 = new Article(2,"pc","pc est  bonne ","salma","draft",[$cat2]);
+       
+        $cat1 = new Categorie(1, 'poo', 'nari');
+        $cat2 = new Categorie(2, 'php', 'facile');
+
+        $article1 = new Article(1, "maths", "maths est bonne", "khadija", "publier", [$cat1], []);
+        $article2 = new Article(2, "pc", "pc est bonne", "salma", "draft", [$cat2], []);
+
+    
+        $auteur1 = new Auteur('hh', 1, 'salim', 'salim@gmail.com', '1234', [$article1]);
+        $auteur2 = new Auteur('hh', 2, 'khadija', 'khadija@gmail.com', '1234', [$article2]);
+
+        // 4. Commentaires
+        $coment1 = new Commentaire(1, 'wowo', $article1, $auteur1);
+       
+        $article1->ajoutecomment($coment1);
 
         $this->storage = [
           'users' => [new User(1,'khadija','khadija@gmail.com','1234'),
@@ -19,7 +30,9 @@ class Collection {
             new Editeur('hi',3,'sara','sara@gmail.com','1234'),
             new Admin(true,1,'admin','admin@gmail.com','123')],
            'categories' => [$cat1,$cat2],
-            'articles'=>[$article1,$article2]
+            'articles'=>[$article1,$article2],
+            'commentaires' => [$coment1]
+           
         ];
        
 
@@ -143,14 +156,24 @@ public function modifier_categorie(int $id, categorie $newCategorie){
     }
 }
     //les statistique pour admin
-     public function getstatistique(){
+public function getstatistique(){
          return [
           'users'=>count($this->storage['users']),
            'categories'=>count($this->storage['categories']),
            'articles'=>count($this->storage[ 'articles'])
          ];
      }
-     
+    //modifier comment pour editeur et admin
+  public function modifier_comment(int $id,string $newcomment){
+    foreach ($this->storage['articles'] as $art) {
+        foreach ($art->getComment() as $comt) {
+         if ($comt->getId() === $id) {
+            $comt->setcontent($newcomment);
+        }
+    
+}
+}
+}
 
 
 

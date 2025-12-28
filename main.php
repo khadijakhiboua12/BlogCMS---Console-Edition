@@ -37,9 +37,13 @@ $admin = new Admin(true,1,'admin','admin@gmail.com','123');
 $newuser=new Auteur("Je suis prof", 28, "khadija", "khadija@gmail.com", "900");
 // $newArticle=new Article(2,"maths","islamic est  bonne ","yasmine","jjjj");
 $cat1=new categorie(1,'poo','nari');
+$article1=new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1],[]);
+
+$auteur1 = new Auteur('hh', 1, 'salim', 'salim@gmail.com', '1234', [$article1]);
+
 $newcategorie=new categorie(19,'pappa','yelo');
 $editeur=new Editeur('hi',3,'sara','sara@gmail.com','1234');
-$article1=new Article(1,"maths","maths est  bonne ","khadija","publier",[$cat1]);
+$newcomment=new commentaire(3,'yeees',$article1,$auteur1);
 
 
 // $admin->creeUser($newuser);
@@ -54,6 +58,7 @@ $admin->supprimer_categorie_BYId(2);
 // $admin->modifier_categorie_BYID(2,$newcategorie);
 $admin->voirStatistique();
 $editeur->changerStatus($article1,'draft');
+$editeur->modifier_commentaire(1,"hello");
 // echo $collection->afficher_role($admin);
 print_r($collection->getStorage());
 }
